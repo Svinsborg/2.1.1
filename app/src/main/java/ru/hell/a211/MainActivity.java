@@ -14,12 +14,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
 
-    private EditText InputMoney;
-    private EditText InputInfo;
-    private Button BtnOk;
-    private CheckBox BankCardChkBx;
-    private CheckBox MobilePhoneChkBx;
-    private CheckBox CashAddressChkBx;
+    private EditText inputMoney;
+    private EditText inputInfo;
+    private Button btnOk;
+    private CheckBox bankCardChkBx;
+    private CheckBox mobilePhoneChkBx;
+    private CheckBox cashAddressChkBx;
 
 
     @Override
@@ -29,96 +29,35 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        BankCardChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    switch (compoundButton.getId()) {
-                        case R.id.bankCardChkBx:
-                            resetCheckBoxes();
-                            BankCardChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
-                            break;
-                        case R.id.mobilePhoneChkBx:
-                            resetCheckBoxes();
-                            MobilePhoneChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-                            break;
-                        case R.id.cashAddressChkBx:
-                            resetCheckBoxes();
-                            InputInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                            CashAddressChkBx.setChecked(true);
-                            break;
-                        default:
-                    }
-                }
-            }
-        });
 
-        MobilePhoneChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    switch (compoundButton.getId()) {
-                        case R.id.bankCardChkBx:
-                            resetCheckBoxes();
-                            BankCardChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
-                            break;
-                        case R.id.mobilePhoneChkBx:
-                            resetCheckBoxes();
-                            MobilePhoneChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-                            break;
-                        case R.id.cashAddressChkBx:
-                            resetCheckBoxes();
-                            InputInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                            CashAddressChkBx.setChecked(true);
-                            break;
-                        default:
-                    }
-                }
-            }
-        });
-
-        CashAddressChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    switch (compoundButton.getId()) {
-                        case R.id.bankCardChkBx:
-                            resetCheckBoxes();
-                            BankCardChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
-                            break;
-                        case R.id.mobilePhoneChkBx:
-                            resetCheckBoxes();
-                            MobilePhoneChkBx.setChecked(true);
-                            InputInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-                            break;
-                        case R.id.cashAddressChkBx:
-                            resetCheckBoxes();
-                            InputInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                            CashAddressChkBx.setChecked(true);
-                            break;
-                        default:
-                    }
-                }
-            }
-        });
-
-        BtnOk.setOnClickListener(new View.OnClickListener() {
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "необходимое сообщение", Toast.LENGTH_LONG).show();
+                String moneyStr = inputMoney.getText().toString();
+                String payStr = inputInfo.getText().toString();
+                String msgStr = null;
+
+                if (bankCardChkBx.isChecked()){
+                    msgStr = "р., ОДОБРЕН перевод на карту: № ";
+                }
+                if (mobilePhoneChkBx.isChecked()){
+                    msgStr = "р., ОДОБРЕН перевод по номеру телефона: ";
+                }
+                if (cashAddressChkBx.isChecked()){
+                    msgStr = "р., ОДОБРЕН перевод по адрессу: ";
+                }
+
+                Toast.makeText(MainActivity.this, moneyStr + msgStr + payStr, Toast.LENGTH_LONG).show();
             }
         });
 
     }
 
     private void resetCheckBoxes(){
-        BankCardChkBx.setChecked(false);
-        MobilePhoneChkBx.setChecked(false);
-        CashAddressChkBx.setChecked(false);
+        bankCardChkBx.setChecked(false);
+        mobilePhoneChkBx.setChecked(false);
+        cashAddressChkBx.setChecked(false);
     }
 
     CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -128,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
                 switch (compoundButton.getId()) {
                     case R.id.bankCardChkBx:
                         resetCheckBoxes();
-                        BankCardChkBx.setChecked(true);
-                        InputInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        bankCardChkBx.setChecked(true);
+                        inputInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
                         break;
                     case R.id.mobilePhoneChkBx:
                         resetCheckBoxes();
-                        MobilePhoneChkBx.setChecked(true);
-                        InputInfo.setInputType(InputType.TYPE_CLASS_PHONE);
+                        mobilePhoneChkBx.setChecked(true);
+                        inputInfo.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case R.id.cashAddressChkBx:
                         resetCheckBoxes();
-                        InputInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                        CashAddressChkBx.setChecked(true);
+                        inputInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+                        cashAddressChkBx.setChecked(true);
                         break;
                     default:
                 }
@@ -148,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initViews() {
-        InputMoney = findViewById(R.id.inputMoney);
-        InputInfo = findViewById(R.id.inputInfo);
-        BtnOk = findViewById(R.id.btnOK);
-        BankCardChkBx = findViewById(R.id.bankCardChkBx);
-        MobilePhoneChkBx = findViewById(R.id.mobilePhoneChkBx);
-        CashAddressChkBx = findViewById(R.id.cashAddressChkBx);
-        BankCardChkBx.setOnCheckedChangeListener(checkedChangeListener);
-        MobilePhoneChkBx.setOnCheckedChangeListener(checkedChangeListener);
-        CashAddressChkBx.setOnCheckedChangeListener(checkedChangeListener);
+        inputMoney = findViewById(R.id.inputMoney);
+        inputInfo = findViewById(R.id.inputInfo);
+        btnOk = findViewById(R.id.btnOK);
+        bankCardChkBx = findViewById(R.id.bankCardChkBx);
+        mobilePhoneChkBx = findViewById(R.id.mobilePhoneChkBx);
+        cashAddressChkBx = findViewById(R.id.cashAddressChkBx);
+        bankCardChkBx.setOnCheckedChangeListener(checkedChangeListener);
+        mobilePhoneChkBx.setOnCheckedChangeListener(checkedChangeListener);
+        cashAddressChkBx.setOnCheckedChangeListener(checkedChangeListener);
     }
 }
